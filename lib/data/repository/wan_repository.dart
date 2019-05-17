@@ -1,4 +1,5 @@
 import 'package:flutter_app/common/common.dart';
+//import 'package:flutter_app/common/component_index.dart';
 import 'package:flutter_app/data/api/apis.dart';
 import 'package:flutter_app/data/net/dio_util.dart';
 import 'package:flutter_app/data/protocol/models.dart';
@@ -7,19 +8,23 @@ class WanRepository {
   /**
    * 登录
    */
-  Future<List<LoginModel>> getLogin({data}) async {
-    BaseResp<List> baseResp = await DioUtil().request<List>(
+  Future<LoginModel> getLogin({data}) async {
+    BaseResp<LoginModel> baseResp = await DioUtil().request<LoginModel>(
         Method.post, WanAndroidApi.getPath(path: WanAndroidApi.USER_LOGIN),data: data);
-    List<LoginModel> loginList;
     if (baseResp.code != Constant.status_success) {
       return new Future.error(baseResp.msg);
     }
+    LoginModel loginModel;
+//    JsonCodec json = JsonCodec();
+//    loginModel = LoginModel.fromJson(json.decode(baseResp.data));
     if (baseResp.data != null) {
-      loginList = baseResp.data.map((value) {
-        return LoginModel.fromJson(value);
-      }).toList();
+    loginModel = LoginModel.fromJson(baseResp.data);
+//      return baseResp.data;
+//      loginList = baseResp.data.map((value) {
+//        return LoginModel.fromJson(value);
+//      }).toList();
     }
-    return loginList;
+    return loginModel;
   }
 
   Future<List<BannerModel>> getBanner() async {
@@ -29,11 +34,11 @@ class WanRepository {
     if (baseResp.code != Constant.status_success) {
       return new Future.error(baseResp.msg);
     }
-    if (baseResp.data != null) {
-      bannerList = baseResp.data.map((value) {
-        return BannerModel.fromJson(value);
-      }).toList();
-    }
+//    if (baseResp.data != null) {
+//      bannerList = baseResp.data.map((value) {
+//        return BannerModel.fromJson(value);
+//      }).toList();
+//    }
     return bannerList;
   }
 
@@ -47,12 +52,12 @@ class WanRepository {
     if (baseResp.code != Constant.status_success) {
       return new Future.error(baseResp.msg);
     }
-    if (baseResp.data != null) {
-      ComData comData = ComData.fromJson(baseResp.data);
-      list = comData.datas.map((value) {
-        return ReposModel.fromJson(value);
-      }).toList();
-    }
+//    if (baseResp.data != null) {
+//      ComData comData = ComData.fromJson(baseResp.data);
+//      list = comData.datas.map((value) {
+//        return ReposModel.fromJson(value);
+//      }).toList();
+//    }
     return list;
   }
 
@@ -65,12 +70,12 @@ class WanRepository {
     if (baseResp.code != Constant.status_success) {
       return new Future.error(baseResp.msg);
     }
-    if (baseResp.data != null) {
-      ComData comData = ComData.fromJson(baseResp.data);
-      list = comData.datas.map((value) {
-        return ReposModel.fromJson(value);
-      }).toList();
-    }
+//    if (baseResp.data != null) {
+//      ComData comData = ComData.fromJson(baseResp.data);
+//      list = comData.datas.map((value) {
+//        return ReposModel.fromJson(value);
+//      }).toList();
+//    }
     return list;
   }
 
@@ -81,11 +86,11 @@ class WanRepository {
     if (baseResp.code != Constant.status_success) {
       return new Future.error(baseResp.msg);
     }
-    if (baseResp.data != null) {
-      treeList = baseResp.data.map((value) {
-        return TreeModel.fromJson(value);
-      }).toList();
-    }
+//    if (baseResp.data != null) {
+//      treeList = baseResp.data.map((value) {
+//        return TreeModel.fromJson(value);
+//      }).toList();
+//    }
     return treeList;
   }
 
@@ -98,12 +103,12 @@ class WanRepository {
     if (baseResp.code != Constant.status_success) {
       return new Future.error(baseResp.msg);
     }
-    if (baseResp.data != null) {
-      ComData comData = ComData.fromJson(baseResp.data);
-      list = comData.datas.map((value) {
-        return ReposModel.fromJson(value);
-      }).toList();
-    }
+//    if (baseResp.data != null) {
+//      ComData comData = ComData.fromJson(baseResp.data);
+//      list = comData.datas.map((value) {
+//        return ReposModel.fromJson(value);
+//      }).toList();
+//    }
     return list;
   }
 
@@ -118,12 +123,12 @@ class WanRepository {
     if (baseResp.code != Constant.status_success) {
       return new Future.error(baseResp.msg);
     }
-    if (baseResp.data != null) {
-      ComData comData = ComData.fromJson(baseResp.data);
-      list = comData.datas.map((value) {
-        return ReposModel.fromJson(value);
-      }).toList();
-    }
+//    if (baseResp.data != null) {
+//      ComData comData = ComData.fromJson(baseResp.data);
+//      list = comData.datas.map((value) {
+//        return ReposModel.fromJson(value);
+//      }).toList();
+//    }
     return list;
   }
 
@@ -134,11 +139,11 @@ class WanRepository {
     if (baseResp.code != Constant.status_success) {
       return new Future.error(baseResp.msg);
     }
-    if (baseResp.data != null) {
-      treeList = baseResp.data.map((value) {
-        return TreeModel.fromJson(value);
-      }).toList();
-    }
+//    if (baseResp.data != null) {
+//      treeList = baseResp.data.map((value) {
+//        return TreeModel.fromJson(value);
+//      }).toList();
+//    }
     return treeList;
   }
 
@@ -149,11 +154,11 @@ class WanRepository {
     if (baseResp.code != Constant.status_success) {
       return new Future.error(baseResp.msg);
     }
-    if (baseResp.data != null) {
-      treeList = baseResp.data.map((value) {
-        return TreeModel.fromJson(value);
-      }).toList();
-    }
+//    if (baseResp.data != null) {
+//      treeList = baseResp.data.map((value) {
+//        return TreeModel.fromJson(value);
+//      }).toList();
+//    }
     return treeList;
   }
 }

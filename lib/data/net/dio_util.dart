@@ -17,7 +17,7 @@ class BaseResp<T> {
   String status;
   int code;
   String msg;
-  T data;
+  dynamic data;
 
   BaseResp(this.status, this.code, this.msg, this.data);
 
@@ -121,7 +121,8 @@ class DioUtil {
   String _codeKey = "errorCode";
 
   /// BaseResp [String msg]字段 key, 默认：errorMsg.
-  String _msgKey = "errorMsg";
+//  String _msgKey = "errorMsg";
+  String _msgKey = "msg";
 
   /// BaseResp [T data]字段 key, 默认：data.
   String _dataKey = "data";
@@ -139,7 +140,7 @@ class DioUtil {
   String _pKCSPwd;
 
   /// 是否是debug模式.
-  static bool _isDebug = false;
+  static bool _isDebug = true;
 
   static DioUtil getInstance() {
     return _singleton;
@@ -208,27 +209,19 @@ class DioUtil {
     String _status;
     int _code;
     String _msg;
-    T _data;
+    dynamic _data;
     if (response.statusCode == HttpStatus.ok ||
         response.statusCode == HttpStatus.created) {
       try {
         if (response.data is Map) {
-          _status = (response.data[_statusKey] is int)
-              ? response.data[_statusKey].toString()
-              : response.data[_statusKey];
-          _code = (response.data[_codeKey] is String)
-              ? int.tryParse(response.data[_codeKey])
-              : response.data[_codeKey];
+          _status = (response.data[_statusKey] is int) ? response.data[_statusKey].toString() : response.data[_statusKey];
+          _code = (response.data[_codeKey] is String) ? int.tryParse(response.data[_codeKey]) : response.data[_codeKey];
           _msg = response.data[_msgKey];
           _data = response.data[_dataKey];
         } else {
           Map<String, dynamic> _dataMap = _decodeData(response);
-          _status = (_dataMap[_statusKey] is int)
-              ? _dataMap[_statusKey].toString()
-              : _dataMap[_statusKey];
-          _code = (_dataMap[_codeKey] is String)
-              ? int.tryParse(_dataMap[_codeKey])
-              : _dataMap[_codeKey];
+          _status = (_dataMap[_statusKey] is int) ? _dataMap[_statusKey].toString() : _dataMap[_statusKey];
+          _code = (_dataMap[_codeKey] is String) ? int.tryParse(_dataMap[_codeKey]) : _dataMap[_codeKey];
           _msg = _dataMap[_msgKey];
           _data = _dataMap[_dataKey];
         }

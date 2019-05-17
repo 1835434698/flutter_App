@@ -6,7 +6,8 @@ class Constant {
   static const String server_address = wan_android;
 
 //  static const String wan_android = "http://www.wanandroid.com/";
-  static const String wan_android = "http://www.koudt.com/";
+  static const String wan_android = "http://192.168.70.85/case_nuts/";
+//  static const String wan_android = "http://47.94.22.205/koudaitu_test/";
 
   static const int type_sys_update = 1;
   static const String key_theme_color = 'key_theme_color';

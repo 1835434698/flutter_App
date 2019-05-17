@@ -11,10 +11,10 @@ class MainBloc implements BlocBase {
 
   BehaviorSubject<List<BannerModel>> _banner =
       BehaviorSubject<List<BannerModel>>();
-  BehaviorSubject<List<LoginModel>> _login =  BehaviorSubject<List<LoginModel>>();
+  BehaviorSubject<LoginModel> _login =  BehaviorSubject<LoginModel>();
+  Sink<LoginModel> get _loginSink => _login.sink;
 
   Sink<List<BannerModel>> get _bannerSink => _banner.sink;
-  Sink<List<LoginModel>> get _loginSink => _login.sink;
 
   Stream<List<BannerModel>> get bannerStream => _banner.stream;
 
@@ -204,8 +204,8 @@ class MainBloc implements BlocBase {
   }
 
   Future getLogin(LoginReq _loginReq) {
-    return wanRepository.getLogin(data:_loginReq.toJson()).then((list) {
-      _loginSink.add(UnmodifiableListView<LoginModel>(list));
+    return wanRepository.getLogin(data:_loginReq.toJson()).then((login) {
+      _loginSink.add(login);
     });
   }
   Future getBanner(String labelId) {

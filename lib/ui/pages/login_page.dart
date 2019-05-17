@@ -244,10 +244,13 @@ class LoginPageState extends State<LoginPage>{
               child: new Text('登录'),
               onPressed: () {
                 LogUtil.e("onPressed......"+_phone_controller.text, tag: tag);
-                MainBloc mainBloc = new MainBloc();
 
-                List<LoginModel> lists = mainBloc.getLoginData(_phone_controller.text, _password_controller.text) as List<LoginModel>;
-                LogUtil.e("onPressed......"+_phone_controller.text, tag: tag);
+                RequestUtil mainBloc = new RequestUtil();
+
+                LoginReq _loginReq = new LoginReq(_phone_controller.text, _password_controller.text);
+                mainBloc.getLogin(_loginReq).then((login){
+                  LogUtil.e("getLogin....2.."+login.toString(), tag: 'LoginPage');
+                });
 
               },
             ),

@@ -77,7 +77,14 @@ class ReposModel {
   }
 }
 
-class LoginModel {
+class BaseModel{
+  fromJson(Map<String, dynamic> json){
+  }
+}
+
+
+
+class LoginModel extends BaseModel{
   int sellerId;
   int type;
   int orderCount;
