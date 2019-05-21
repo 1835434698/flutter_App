@@ -26,6 +26,7 @@ class LoginPageState extends State<LoginPage>{
   @override
   void initState() {
    initListener();
+   initFromCache();
     super.initState();
   }
 
@@ -245,6 +246,13 @@ class LoginPageState extends State<LoginPage>{
               child: new Text('登录'),
               onPressed: () {
                 LogUtil.e("onPressed......"+_phone_controller.text, tag: tag);
+                LogUtil.e("onPressed......check = "+check.toString(), tag: tag);
+                if(check){
+                  saveMethodName(_phone_controller.text, _password_controller.text);
+                }else{
+                  saveMethodName("", "");
+                }
+
                 if(_phone_controller.text.isEmpty){
                   Fluttertoast.showToast(msg: "手机号不能为空1",
                   toastLength: Toast.LENGTH_SHORT);
@@ -284,6 +292,22 @@ class LoginPageState extends State<LoginPage>{
       LogUtil.e("onChanged......_password_focusNode.hasFocus = "+_password_focusNode.hasFocus.toString(), tag: tag);
       setState_();
     });
+  }
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  //保存数据
+  void saveMethodName(String username, String password) async {
+    SharedPreferences prefs = await _prefs;
+    prefs.setString("username", username);
+    prefs.setString("password", password);
+  }
+
+//获取数据
+  void initFromCache() async {
+    SharedPreferences prefs = await _prefs;
+    _phone_controller.text = prefs.getString("username");
+    _password_controller.text = prefs.getString("password");
+    setState_();
   }
 
 }
