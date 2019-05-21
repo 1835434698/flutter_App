@@ -104,7 +104,8 @@ class MyAppState extends State<MyApp> {
     return new MaterialApp(
       routes: {
 //        '/MainPage': (ctx) => MainPage(),
-        '/MainPage': (ctx) => LoginPage(),
+        '/WelcomPage': (ctx) => WelcomePage(),
+        '/LoginPage': (ctx) => LoginPage(),
       },
       home: new SplashPage(),
       theme: ThemeData.light().copyWith(

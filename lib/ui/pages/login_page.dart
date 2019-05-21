@@ -270,6 +270,9 @@ class LoginPageState extends State<LoginPage>{
                 mainBloc.getLogin(_loginReq).
                 then((login){
                   LogUtil.e("getLogin....2.."+login.toString(), tag: 'LoginPage');
+                  Navigator.of(context).pushReplacementNamed('/WelcomPage');
+//                  NavigatorUtil.pushPage(context, WelcomePage(),
+//                      pageName: "WelcomePage");
                 }).catchError((error){
                   LogUtil.e("error......"+error.toString(), tag: tag);
 //                  Fluttertoast.showToast(msg: error.toString(),

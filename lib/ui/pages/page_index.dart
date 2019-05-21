@@ -17,3 +17,4 @@ export 'rec_hot_page.dart';
 
 export 'backdrop_demo.dart';
 export 'login_page.dart';
+export 'welcome_page.dart';
