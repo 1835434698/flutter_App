@@ -15,7 +15,7 @@ class ReposPage extends StatelessWidget {
     final MainBloc bloc = BlocProvider.of<MainBloc>(context);
     bloc.homeEventStream.listen((event) {
       if (labelId == event.labelId) {
-        _controller.sendBack(false, event.status);
+//        _controller.sendBack(false, event.status);
       }
     });
 

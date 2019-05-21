@@ -218,20 +218,20 @@ class LoginPageState extends State<LoginPage>{
           child: new Row(
             children: <Widget>[
               new Container(
-                child: new CheckboxListTile(
+                child: new Checkbox(
                 value: check,
                 onChanged: (bool val){
-//                  setState(() {
                     check = !check;
-//                  });
                   setState_();
                 },
               ),
                 width: 30,
+                height: 30,
               ),
+
               new Expanded(
                   child: new Text('记住账号与密码',
-                  style: TextStyle(color: Colours.blue_1184fa),)
+                    style: TextStyle(color: Colours.blue_1184fa),)
               ),
             ],
           ),
