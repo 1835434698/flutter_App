@@ -52,6 +52,8 @@ dependencies:
   webview_flutter: ^0.3.4
   # https://github.com/flutterchina/flukit.
   flukit: ^1.0.0
+  # toast https://github.com/PonnamKarthik/FlutterToast
+  fluttertoast: ^3.1.0
 
 dev_dependencies:
   flutter_test:

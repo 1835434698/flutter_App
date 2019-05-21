@@ -18,3 +18,4 @@ export 'package:flukit/flukit.dart';
 export 'package:cached_network_image/cached_network_image.dart';
 export 'package:pull_to_refresh/pull_to_refresh.dart';
 export 'package:flutter_app/data/repository/request_util.dart';
+export 'package:fluttertoast/fluttertoast.dart';

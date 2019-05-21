@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/component_index.dart';
+import 'package:flutter_app/data/repository/wan_repository.dart';
 import 'package:flutter_app/ui/pages/page_index.dart';
 
 class LoginPage extends StatefulWidget{
@@ -244,12 +245,27 @@ class LoginPageState extends State<LoginPage>{
               child: new Text('登录'),
               onPressed: () {
                 LogUtil.e("onPressed......"+_phone_controller.text, tag: tag);
+                if(_phone_controller.text.isEmpty){
+                  Fluttertoast.showToast(msg: "手机号不能为空1",
+                  toastLength: Toast.LENGTH_SHORT);
+                  return;
+                }
+                if(_password_controller.text.isEmpty){
+                  Fluttertoast.showToast(msg: "密码不能为空",
+                  toastLength: Toast.LENGTH_SHORT);
+                  return;
+                }
 
                 RequestUtil mainBloc = new RequestUtil();
-
                 LoginReq _loginReq = new LoginReq(_phone_controller.text, _password_controller.text);
-                mainBloc.getLogin(_loginReq).then((login){
+
+                mainBloc.getLogin(_loginReq).
+                then((login){
                   LogUtil.e("getLogin....2.."+login.toString(), tag: 'LoginPage');
+                }).catchError((error){
+                  LogUtil.e("error......"+error.toString(), tag: tag);
+//                  Fluttertoast.showToast(msg: error.toString(),
+//                      toastLength: Toast.LENGTH_SHORT);
                 });
 
               },

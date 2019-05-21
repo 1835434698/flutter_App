@@ -1,4 +1,5 @@
 import 'package:flutter_app/common/common.dart';
+import 'package:flutter_app/common/component_index.dart';
 //import 'package:flutter_app/common/component_index.dart';
 import 'package:flutter_app/data/api/apis.dart';
 import 'package:flutter_app/data/net/dio_util.dart';
@@ -12,6 +13,8 @@ class WanRepository {
     BaseResp<LoginModel> baseResp = await DioUtil().request<LoginModel>(
         Method.post, WanAndroidApi.getPath(path: WanAndroidApi.USER_LOGIN),data: data);
     if (baseResp.code != Constant.status_success) {
+      Fluttertoast.showToast(msg: baseResp.msg,
+          toastLength: Toast.LENGTH_SHORT);
       return new Future.error(baseResp.msg);
     }
     LoginModel loginModel;
