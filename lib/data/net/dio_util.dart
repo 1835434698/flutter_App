@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_app/common/component_index.dart';
 
 /**
  * @Author: thl
@@ -118,7 +119,8 @@ class DioUtil {
   String _statusKey = "status";
 
   /// BaseResp [int code]字段 key, 默认：errorCode.
-  String _codeKey = "errorCode";
+//  String _codeKey = "errorCode";
+  String _codeKey = "code";
 
   /// BaseResp [String msg]字段 key, 默认：errorMsg.
 //  String _msgKey = "errorMsg";
@@ -227,6 +229,7 @@ class DioUtil {
         }
         return new BaseResp(_status, _code, _msg, _data);
       } catch (e) {
+        LogUtil.e("data parsing exception..."+e.toString(), tag: 'LoginPage');
         return new Future.error(new DioError(
           response: response,
           message: "data parsing exception...",
@@ -234,6 +237,9 @@ class DioUtil {
         ));
       }
     }
+    LogUtil.e("statusCode: $response.statusCode, service error", tag: 'LoginPage');
+    Fluttertoast.showToast(msg: "statusCode: $response.statusCode, service error",
+        toastLength: Toast.LENGTH_SHORT);
     return new Future.error(new DioError(
       response: response,
       message: "statusCode: $response.statusCode, service error",

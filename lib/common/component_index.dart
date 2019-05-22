@@ -20,3 +20,4 @@ export 'package:pull_to_refresh/pull_to_refresh.dart';
 export 'package:flutter_app/data/repository/request_util.dart';
 export 'package:fluttertoast/fluttertoast.dart';
 export 'package:shared_preferences/shared_preferences.dart';
+export 'package:flutter/services.dart';

@@ -185,6 +185,26 @@ class TreeModel extends ISuspensionBean {
   }
 }
 
+class ReqData{
+  String key;
+  ReqData(this.key);
+
+  ReqData.fromJson(Map<String, dynamic> json)
+      : key = json['key'];
+
+  Map<String, dynamic> toJson() => {
+    'key': key,
+  };
+
+  @override
+  String toString() {
+    return '{' +
+        '"key":"' + key + '"' +
+        '}';
+  }
+
+}
+
 class LoginReq {
   String username;
   String password;
@@ -203,10 +223,10 @@ class LoginReq {
   @override
   String toString() {
     return '{' +
-        " \"username\":\"" +
+        "\"username\":\"" +
         username +
         "\"" +
-        ", \"password\":\"" +
+        ",\"password\":\"" +
         password +
         "\"" +
         '}';

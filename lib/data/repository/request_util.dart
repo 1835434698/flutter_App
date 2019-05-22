@@ -7,7 +7,7 @@ class RequestUtil{
   WanRepository wanRepository = new WanRepository();
 
 
-  Future getLogin(LoginReq _loginReq) {
+  Future getLogin(ReqData _loginReq) {
     return wanRepository.getLogin(data:_loginReq.toJson());
   }
 
