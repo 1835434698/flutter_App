@@ -115,6 +115,9 @@ class DioUtil {
   static final DioUtil _singleton = DioUtil._init();
   static Dio _dio;
 
+  String tokenValue = "";
+  /// BaseResp [String token]字段 key, 默认：token.
+  String _token = "token";
   /// BaseResp [String status]字段 key, 默认：status.
   String _statusKey = "status";
 
@@ -220,12 +223,15 @@ class DioUtil {
           _code = (response.data[_codeKey] is String) ? int.tryParse(response.data[_codeKey]) : response.data[_codeKey];
           _msg = response.data[_msgKey];
           _data = response.data[_dataKey];
+          tokenValue = response.data[_token][_token].toString();
         } else {
           Map<String, dynamic> _dataMap = _decodeData(response);
           _status = (_dataMap[_statusKey] is int) ? _dataMap[_statusKey].toString() : _dataMap[_statusKey];
           _code = (_dataMap[_codeKey] is String) ? int.tryParse(_dataMap[_codeKey]) : _dataMap[_codeKey];
           _msg = _dataMap[_msgKey];
           _data = _dataMap[_dataKey];
+
+          tokenValue = _dataMap[_token][_token].toString() ;
         }
         return new BaseResp(_status, _code, _msg, _data);
       } catch (e) {

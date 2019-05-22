@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/component_index.dart';
+import 'package:flutter_app/data/net/dio_util.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -288,8 +289,9 @@ class LoginPageState extends State<LoginPage> {
                   ReqData reqData = new ReqData(onValue);
                   RequestUtil mainBloc = new RequestUtil();
                   mainBloc.getLogin(reqData).then((login) {
-                    LogUtil.e("getLogin....2.." + login.toString(),
-                        tag: 'LoginPage');
+                    LogUtil.e("getLogin....2.." + login.toString(), tag: 'LoginPage');
+//                    LogUtil.e("DioUtil.getInstance().tokenValue = " + DioUtil.getInstance().tokenValue, tag: 'LoginPage');
+
                     Navigator.of(context).pushReplacementNamed('/WelcomPage');
 //                  NavigatorUtil.pushPage(context, WelcomePage(),
 //                      pageName: "WelcomePage");

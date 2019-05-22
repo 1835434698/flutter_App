@@ -89,33 +89,160 @@ class LoginModel extends BaseModel{
   int type;
   int orderCount;
   String serviceId;
+  SellerInfoModel sellerInfo;
+  List<RomeModel> romes = new List();
 
-  LoginModel.fromJson(Map<String, dynamic> json)
-      :
-        sellerId = json['sellerId'],
-        type = json['type'],
-        orderCount = json['orderCount'],
-        serviceId = json['serviceId']
-  ;
+  LoginModel.fromJson(Map<String, dynamic> json){
+    sellerId = json['sellerId'];
+    type = json['type'];
+    orderCount = json['orderCount'];
+    serviceId = json['serviceId'];
+    sellerInfo = new SellerInfoModel.fromJson(json['sellerInfo']);
+    for(var dataItem in json['romes']){
+      romes.add(new RomeModel.fromJson(dataItem));
+    }
+  }
 
   Map<String, dynamic> toJson() => {
     'sellerId': sellerId,
     'type': type,
     'serviceId': serviceId,
     'orderCount': orderCount,
+    'sellerInfo': sellerInfo.toJson(),
+    'romes': romes,
   };
 
   @override
   String toString() {
     StringBuffer sb = new StringBuffer('{');
-    sb.write(",\"sellerId\":$sellerId");
-    sb.write(",\"type\":$type");
-    sb.write(",\"serviceId\":\"$serviceId\"");
-    sb.write(",\"orderCount\":\"$orderCount\"");
+    sb.write('"sellerId":$sellerId');
+    sb.write(',"type":$type');
+    sb.write(',"orderCount":$orderCount');
+    sb.write(',"serviceId":"$serviceId"');
+    sb.write(',"sellerInfo":'+sellerInfo.toString());
+    sb.write(',"romes":'+romes.toString());
     sb.write('}');
     return sb.toString();
   }
 }
+
+class SellerInfoModel extends BaseModel{
+  String sellerName;
+  String mobile;
+
+  SellerInfoModel.fromJson(Map<String, dynamic> json)
+      :
+        mobile = json['mobile'],
+        sellerName = json['sellerName']
+  ;
+
+  Map<String, dynamic> toJson() => {
+    'mobile': mobile,
+    'sellerName': sellerName,
+  };
+
+  @override
+  String toString() {
+    StringBuffer sb = new StringBuffer('{');
+    sb.write('"mobile":$mobile');
+    sb.write(',"sellerName":"$sellerName"');
+    sb.write('}');
+    return sb.toString();
+  }
+}
+
+class RomeModel extends BaseModel{
+   int id;
+   String name;
+   String code;
+   int stats;
+   String orderNo;
+   int preordainAmStatus = 0;//0 未预订  1,已预订
+   int preordainPmStatus = 0;//0 未预订  1,已预订
+   List<RomeOrdersModel> romeOrders = new List();
+
+  RomeModel.fromJson(Map<String, dynamic> json){
+    id = json['id'];
+    code = json['code'];
+    stats = json['stats'];
+    name = json['name'];
+    orderNo = json['orderNo'];
+    preordainAmStatus = json['preordainAmStatus'];
+    preordainPmStatus = json['preordainPmStatus'];
+    for(var dataItem in json['romeOrders']){
+      romeOrders.add(new RomeOrdersModel.fromJson(dataItem));
+    }
+  }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name': name,
+    'code': code,
+    'stats': stats,
+    'orderNo': orderNo,
+    'preordainAmStatus': preordainAmStatus,
+    'preordainPmStatus': preordainPmStatus,
+    'romeOrders': romeOrders,
+  };
+
+  @override
+  String toString() {
+    StringBuffer sb = new StringBuffer('{');
+    sb.write('"id":$id');
+    sb.write(',"name":"$name"');
+    sb.write(',"code":"$code"');
+    sb.write(',"stats":$stats');
+    sb.write(',"orderNo":"$orderNo"');
+    sb.write(',"preordainAmStatus":$preordainAmStatus');
+    sb.write(',"preordainPmStatus":$preordainPmStatus');
+    sb.write(',"romeOrders":'+romeOrders.toString());
+    sb.write('}');
+    return sb.toString();
+  }
+}
+
+
+class RomeOrdersModel extends BaseModel{
+   String orderNo;
+   int status;
+   int type;
+   int preordain = 0;//
+   String preordainAm ;//0 未预订  1,已预订
+   String preordainPm ;//0 未预订  1,已预订
+
+   RomeOrdersModel.fromJson(Map<String, dynamic> json)
+      :
+        orderNo = json['orderNo'],
+         status = json['status'],
+         type = json['type'],
+         preordain = json['preordain'],
+         preordainAm = json['preordainAm'],
+         preordainPm = json['preordainPm']
+  ;
+
+  Map<String, dynamic> toJson() => {
+    'orderNo': orderNo,
+    'status': status,
+    'type': type,
+    'preordain': preordain,
+    'preordainAm': preordainAm,
+    'preordainPm': preordainPm,
+  };
+
+  @override
+  String toString() {
+    StringBuffer sb = new StringBuffer('{');
+    sb.write('"orderNo":"$orderNo"');
+    sb.write(',"status":$status');
+    sb.write(',"type":$type');
+    sb.write(',"preordain":$preordain');
+    sb.write(',"preordainAm":"$preordainAm"');
+    sb.write(',"preordainPm":"$preordainPm"');
+    sb.write('}');
+    return sb.toString();
+  }
+}
+
 
 class BannerModel {
   String title;
