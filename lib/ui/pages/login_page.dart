@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/component_index.dart';
-import 'package:flutter_app/data/net/dio_util.dart';
+import 'package:flutter_app/ui/pages/page_index.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -275,32 +275,29 @@ class LoginPageState extends State<LoginPage> {
                 }
                 LoginReq _loginReq = new LoginReq(
                     _phone_controller.text, _password_controller.text);
-
-                _getBatteryLevel().then((onValue) {
-                  LogUtil.e("onValue = " + onValue, tag: tag);
-                });
 //                _loginReq.toString()
                 LogUtil.e(
                     "_loginReq.toJson().toString() = " + _loginReq.toString(),
                     tag: tag);
 
-                _getEncryptionAES(_loginReq.toString()).then((onValue) {
-                  LogUtil.e("onValue2 = " + onValue, tag: tag);
-                  ReqData reqData = new ReqData(onValue);
-                  RequestUtil mainBloc = new RequestUtil();
-                  mainBloc.getLogin(reqData).then((login) {
-                    LogUtil.e("getLogin....2.." + login.toString(), tag: 'LoginPage');
+                RequestUtil requestUtil = new RequestUtil();
+
+                requestUtil.getLogin(_loginReq).then((login) {
+                  LogUtil.e("getLogin....2.." + login.toString(),
+                      tag: 'LoginPage');
 //                    LogUtil.e("DioUtil.getInstance().tokenValue = " + DioUtil.getInstance().tokenValue, tag: 'LoginPage');
 
-                    Navigator.of(context).pushReplacementNamed('/WelcomPage');
+//                    Navigator.of(context).pushReplacementNamed('/WelcomPage');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => WelcomePage(loginModel: login)));
 //                  NavigatorUtil.pushPage(context, WelcomePage(),
 //                      pageName: "WelcomePage");
-                  }).catchError((error) {
-                    LogUtil.e("error......" + error.toString(), tag: tag);
-//                  Fluttertoast.showToast(msg: error.toString(),
-//                      toastLength: Toast.LENGTH_SHORT);
-                  });
+                }).catchError((error) {
+                  LogUtil.e("error......" + error.toString(), tag: tag);
                 });
+//                });
               },
             ),
           )
@@ -343,30 +340,16 @@ class LoginPageState extends State<LoginPage> {
     setState_();
   }
 
-  static const platform = const MethodChannel("tangzy.flutter.io/java");
-
   Future<String> _getBatteryLevel() async {
     String batteryLevel;
     try {
       // 在通道上调用此方法
-      final int result = await platform.invokeMethod('getBatteryLevel');
+      final int result =
+          await Constant.platform.invokeMethod('getBatteryLevel');
       batteryLevel = 'Battery level at $result % .';
     } on PlatformException catch (e) {
       batteryLevel = "Failed to get battery level: '${e.message}'.";
     }
     return batteryLevel;
-  }
-
-  Future<String> _getEncryptionAES(String params) async {
-    String result;
-    try {
-//      Map<String, String> map = { "params": params };
-      Map<String, String> map = {"params": params};
-      // 在通道上调用此方法
-      result = await platform.invokeMethod('getEncryptionAES', map);
-    } on PlatformException catch (e) {
-      result = "Failed to get battery level: '${e.message}'.";
-    }
-    return result;
   }
 }

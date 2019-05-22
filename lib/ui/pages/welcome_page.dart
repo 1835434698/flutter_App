@@ -1,16 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/component_index.dart';
 
-class WelcomePage extends StatelessWidget{
+class WelcomePage extends StatefulWidget{
+  final LoginModel loginModel;
+
+  WelcomePage({@required this.loginModel});
+
+  @override
+  State<StatefulWidget> createState() {
+    return new WelcomPageState();
+  }
+}
+
+class WelcomPageState extends State<WelcomePage>{
+  String imageUrl="";
+
+  @override
+  void initState() {
+    getPic();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-
-
-    return new Scaffold(
+    LogUtil.e("build -> imageUrl = "+imageUrl, tag: "tangzy");
+    return new WillPopScope(child: new Scaffold(
       body: new ListView(
         children: <Widget>[
           new Container(
-            child: Image.asset(Utils.getImgPath('ico_first_bg')),
+            child: new CachedNetworkImage(imageUrl: imageUrl,
+            placeholder: (context, url) => new Image.asset(Utils.getImgPath('ico_first_bg')),),
           ),
           new Container(
             margin: EdgeInsets.fromLTRB(10, 50, 10, 50),
@@ -25,6 +44,40 @@ class WelcomePage extends StatelessWidget{
           ),
         ],
       ),
-    );
+    ), onWillPop: onWillBack);
   }
+
+  Future<bool> onWillBack() async{
+    LogUtil.e("onWillBack", tag: "tangzy");
+    toPhoneHome();
+
+    return new Future.value(false);
+  }
+
+  void toPhoneHome(){
+    Constant.platform.invokeMethod('toPhoneHome');
+  }
+
+
+
+  void getPic(){
+    ImageReq imageReq;
+    if(widget.loginModel.type == 3){
+      imageReq = new ImageReq(42);
+    }else{
+      imageReq = new ImageReq(43);
+    }
+    RequestUtil requestUtil = new RequestUtil();
+    requestUtil.getImage(imageReq).then((value){
+      WelcomeModel welcomeModel = value;
+      imageUrl = welcomeModel.imageList[0].imageUrl;
+      LogUtil.e(         "imageUrl = " +imageUrl,          tag: "tangzy");
+      setState(() {
+
+
+      });
+    });
+
+  }
+
 }

@@ -206,6 +206,13 @@ class DioUtil {
   /// <BaseResp<T> 返回 status code msg data .
   Future<BaseResp<T>> request<T>(String method, String path,
       {data, Options options, CancelToken cancelToken}) async {
+//    options.headers.addEntries(newEntries);
+//  Map<String, String> header = new Map("token", tokenValue);
+//  if(tokenValue.isNotEmpty)
+//      options = Options(headers: {HttpHeaders.acceptHeader:"token: "+tokenValue});
+
+//    options.headers = {HttpHeaders.acceptHeader:"token: "+tokenValue};
+
     Response response = await _dio.request(path,
         data: data,
         options: _checkOptions(method, options),

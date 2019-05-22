@@ -1,3 +1,5 @@
+import 'package:flutter_app/common/component_index.dart';
+
 class Constant {
   static const String keyLanguage = 'key_language';
 
@@ -13,6 +15,8 @@ class Constant {
   static const String key_theme_color = 'key_theme_color';
   static const String key_guide = 'key_guide';
   static const String key_splash_model = 'key_splash_models';
+
+  static const platform = const MethodChannel("tangzy.flutter.io/java");
 }
 
 class AppConfig {

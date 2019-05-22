@@ -39,11 +39,13 @@ public class MainActivity extends FlutterActivity {
                                 result.success(batteryLevel);
                             }else{
                                 result.error("UNAVAILABLE", "Battery level not available.", null);
-                            }
+                            }                 //解析参数
                         }else if(methodCall.method.equals("getEncryptionAES")){                   //解析参数
                             String params = methodCall.argument("params");
                             Log.d("LoginPage", "params = "+params);
                             result.success(getEncryptionAES(params));
+                        }else if(methodCall.method.equals("toPhoneHome")){
+                            moveTaskToBack(true);
                         }else{
                             result.notImplemented();
                         }
@@ -55,8 +57,8 @@ public class MainActivity extends FlutterActivity {
     @Override
     public void onBackPressed() {
         Log.d("LoginPage", "onBackPressed");
-        moveTaskToBack(true);
-//    super.onBackPressed();
+//        moveTaskToBack(true);
+    super.onBackPressed();
     }
 
 

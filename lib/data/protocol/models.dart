@@ -86,7 +86,7 @@ class BaseModel{
 
 class LoginModel extends BaseModel{
   int sellerId;
-  int type;
+  int type;//0，商家，1 服务员，2 相关人员 ，3 老板
   int orderCount;
   String serviceId;
   SellerInfoModel sellerInfo;
@@ -243,6 +243,68 @@ class RomeOrdersModel extends BaseModel{
   }
 }
 
+class WelcomeModel extends BaseModel{
+  int imageType =  -1;
+  int imageNum =  -1;
+  String imageName;
+  List<PicModel> imageList = new List();
+
+  WelcomeModel.fromJson(Map<String, dynamic> json){
+    imageType = json['imageType'];
+    imageNum = json['imageNum'];
+    imageName = json['imageName'];
+    for(var dataItem in json['imageList']){
+      imageList.add(new PicModel.fromJson(dataItem));
+    }
+  }
+
+  Map<String, dynamic> toJson() => {
+    'imageType': imageType,
+    'imageNum': imageNum,
+    'imageName': imageName,
+    'imageList': imageList,
+  };
+
+  @override
+  String toString() {
+    StringBuffer sb = new StringBuffer('{');
+    sb.write('"imageType":$imageType');
+    sb.write(',"imageNum":$imageNum');
+    sb.write(',"imageName":"$imageName"');
+
+    sb.write(',"romes":'+imageList.toString());
+    sb.write('}');
+    return sb.toString();
+  }
+}
+
+class PicModel extends BaseModel{
+  String imageName;
+  String imageUrl;
+
+  PicModel.fromJson(Map<String, dynamic> json){
+    imageName = json['imageName'];
+    imageUrl = json['imageUrl'];
+  }
+
+  Map<String, dynamic> toJson() => {
+    'imageName': imageName,
+    'imageUrl': imageUrl,
+  };
+
+  @override
+  String toString() {
+    StringBuffer sb = new StringBuffer('{');
+    sb.write('"imageName":"$imageName"');
+    sb.write(',"imageUrl":"$imageUrl"');
+    sb.write('}');
+    return sb.toString();
+  }
+}
+
+
+
+
 
 class BannerModel {
   String title;
@@ -357,6 +419,26 @@ class LoginReq {
         password +
         "\"" +
         '}';
+  }
+}
+class ImageReq {
+  int imageType;
+
+  ImageReq(this.imageType);
+
+  ImageReq.fromJson(Map<String, dynamic> json)
+      : imageType = json['imageType'];
+
+  Map<String, dynamic> toJson() => {
+        'imageType': imageType,
+      };
+
+  @override
+  String toString() {
+    StringBuffer sb = new StringBuffer('{');
+    sb.write('"imageType":$imageType');
+    sb.write('}');
+    return sb.toString();
   }
 }
 

@@ -18,17 +18,32 @@ class WanRepository {
       return new Future.error(baseResp.msg);
     }
     LoginModel loginModel;
-//    JsonCodec json = JsonCodec();
-//    loginModel = LoginModel.fromJson(json.decode(baseResp.data));
     if (baseResp.data != null) {
     loginModel = LoginModel.fromJson(baseResp.data);
-//      return baseResp.data;
-//      loginList = baseResp.data.map((value) {
-//        return LoginModel.fromJson(value);
-//      }).toList();
     }
     return loginModel;
   }
+  /**
+   * 获取图片
+   */
+  Future<WelcomeModel> getImage({data}) async {
+    BaseResp<WelcomeModel> baseResp = await DioUtil().request<WelcomeModel>(
+        Method.post, WanAndroidApi.getPath(path: WanAndroidApi.Api_appPics),data: data);
+    if (baseResp.code != Constant.status_success) {
+      Fluttertoast.showToast(msg: baseResp.msg,
+          toastLength: Toast.LENGTH_SHORT);
+      return new Future.error(baseResp.msg);
+    }
+    WelcomeModel beanModel;
+    if (baseResp.data != null) {
+      beanModel = WelcomeModel.fromJson(baseResp.data);
+    }
+    return beanModel;
+  }
+
+
+
+
 
   Future<List<BannerModel>> getBanner() async {
     BaseResp<List> baseResp = await DioUtil().request<List>(
