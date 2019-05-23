@@ -157,6 +157,15 @@ class DioUtil {
 
   DioUtil._init() {
     _dio = new Dio(_options);
+//    _dio.onHttpClientCreate =
+//        (HttpClient client) {
+//      client.findProxy = (uri) {
+//        //proxy all request to localhost:8888
+//        return "PROXY 192.168.70.85:8888";
+//      };
+//      client.badCertificateCallback =
+//          (X509Certificate cert, String host, int port) => true;
+//    };
   }
 
   /// 打开debug模式.
@@ -206,13 +215,6 @@ class DioUtil {
   /// <BaseResp<T> 返回 status code msg data .
   Future<BaseResp<T>> request<T>(String method, String path,
       {data, Options options, CancelToken cancelToken}) async {
-//    options.headers.addEntries(newEntries);
-//  Map<String, String> header = new Map("token", tokenValue);
-//  if(tokenValue.isNotEmpty)
-//      options = Options(headers: {HttpHeaders.acceptHeader:"token: "+tokenValue});
-
-//    options.headers = {HttpHeaders.acceptHeader:"token: "+tokenValue};
-
     Response response = await _dio.request(path,
         data: data,
         options: _checkOptions(method, options),
@@ -230,15 +232,18 @@ class DioUtil {
           _code = (response.data[_codeKey] is String) ? int.tryParse(response.data[_codeKey]) : response.data[_codeKey];
           _msg = response.data[_msgKey];
           _data = response.data[_dataKey];
-          tokenValue = response.data[_token][_token].toString();
+          if(response.data[_token] != null && response.data[_token][_token] != null && response.data[_token][_token].toString().isNotEmpty){
+            tokenValue = response.data[_token][_token].toString();
+          }
         } else {
           Map<String, dynamic> _dataMap = _decodeData(response);
           _status = (_dataMap[_statusKey] is int) ? _dataMap[_statusKey].toString() : _dataMap[_statusKey];
           _code = (_dataMap[_codeKey] is String) ? int.tryParse(_dataMap[_codeKey]) : _dataMap[_codeKey];
           _msg = _dataMap[_msgKey];
           _data = _dataMap[_dataKey];
-
-          tokenValue = _dataMap[_token][_token].toString() ;
+          if(_dataMap[_token] != null && _dataMap[_token][_token] != null && _dataMap[_token][_token].toString().isNotEmpty) {
+            tokenValue = _dataMap[_token][_token].toString();
+          }
         }
         return new BaseResp(_status, _code, _msg, _data);
       } catch (e) {
@@ -351,6 +356,12 @@ class DioUtil {
       options = new Options();
     }
     options.method = method;
+    if(tokenValue.isNotEmpty){
+      var headers = Map<String, dynamic>();
+      headers['token'] = tokenValue;
+//    headers['useVersion'] = '3.1.0';
+      options.headers.addAll(headers);
+    }
     return options;
   }
 
@@ -430,6 +441,8 @@ class DioUtil {
         ContentType.parse("application/x-www-form-urlencoded");
     options.connectTimeout = 1000 * 10;
     options.receiveTimeout = 1000 * 20;
+//    options.headers =   Map<String, String>();
+//    options.headers['']
     return options;
   }
 }

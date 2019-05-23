@@ -254,8 +254,6 @@ class LoginPageState extends State<LoginPage> {
               textColor: Colours.gray_33,
               child: new Text('登录'),
               onPressed: () {
-                LogUtil.e("onPressed......check = " + check.toString(),
-                    tag: tag);
                 if (check) {
                   saveMethodName(
                       _phone_controller.text, _password_controller.text);

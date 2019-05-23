@@ -250,10 +250,11 @@ class WelcomeModel extends BaseModel{
   List<PicModel> imageList = new List();
 
   WelcomeModel.fromJson(Map<String, dynamic> json){
-    imageType = json['imageType'];
-    imageNum = json['imageNum'];
-    imageName = json['imageName'];
-    for(var dataItem in json['imageList']){
+    Map<String, dynamic> appPics = json['appPics'];
+    imageType = appPics['imageType'];
+    imageNum = appPics['imageNum'];
+    imageName = appPics['imageName'];
+    for(var dataItem in appPics['imageList']){
       imageList.add(new PicModel.fromJson(dataItem));
     }
   }
