@@ -90,6 +90,7 @@ flutter:
     - assets/images/splash_bg.png
     - assets/images/ico_first_bg.png
     - assets/images/ico_look.png
+    - assets/images/ico_refresh.png
 
     - assets/data/china.json
   #  - images/a_dot_ham.jpeg

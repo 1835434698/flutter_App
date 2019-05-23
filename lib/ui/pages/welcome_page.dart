@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/component_index.dart';
+import 'package:flutter_app/ui/pages/page_index.dart';
 
 class WelcomePage extends StatefulWidget{
-  final LoginModel loginModel;
+  LoginModel loginModel;
 
   WelcomePage({@required this.loginModel});
 
@@ -37,7 +38,14 @@ class WelcomPageState extends State<WelcomePage>{
             width: 180,
             child: InkWell(
               onTap: (){
-                LogUtil.e("toMain", tag: "LoginPage");
+                LogUtil.e("toLobby", tag: "tangzy");
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => LobbyPage(loginModel: widget.loginModel))).then((message){
+                  LogUtil.e("onResult -> message = "+message, tag: "tangzy");
+                  Navigator.of(context).pop(message);
+                });
               },
               child: Image.asset(Utils.getImgPath('ico_look')),
             ),
@@ -73,7 +81,6 @@ class WelcomPageState extends State<WelcomePage>{
       imageUrl = welcomeModel.imageList[0].imageUrl;
       LogUtil.e(         "imageUrl = " +imageUrl,          tag: "tangzy");
       setState(() {
-
 
       });
     });

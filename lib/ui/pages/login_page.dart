@@ -283,13 +283,12 @@ class LoginPageState extends State<LoginPage> {
                 requestUtil.getLogin(_loginReq).then((login) {
                   LogUtil.e("getLogin....2.." + login.toString(),
                       tag: 'LoginPage');
-//                    LogUtil.e("DioUtil.getInstance().tokenValue = " + DioUtil.getInstance().tokenValue, tag: 'LoginPage');
-
-//                    Navigator.of(context).pushReplacementNamed('/WelcomPage');
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => WelcomePage(loginModel: login)));
+                          builder: (_) => WelcomePage(loginModel: login))).then((message){
+                    LogUtil.e("onResult1 -> message = "+message, tag: "tangzy");
+                  });
 //                  NavigatorUtil.pushPage(context, WelcomePage(),
 //                      pageName: "WelcomePage");
                 }).catchError((error) {
