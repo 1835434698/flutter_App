@@ -23,7 +23,6 @@ class LobbyPageState extends State<LobbyPage> {
     // TODO: implement initState
     super.initState();
 //    screenWidth = MediaQuery.of(context).size.width;
-
   }
 
   @override
@@ -99,7 +98,7 @@ class LobbyPageState extends State<LobbyPage> {
           ),
           new Container(
             child: new Container(
-              margin: EdgeInsets.fromLTRB(15.0, 15.0, 0.0,15.0),
+              margin: EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 15.0),
               child: new Divider(
                 height: 1,
                 color: Colours.color_7DC5CB,
@@ -109,8 +108,10 @@ class LobbyPageState extends State<LobbyPage> {
           ),
           new Container(
             margin: EdgeInsets.fromLTRB(15, 0, 10, 10),
-            child: new Text('包间详情',
-            style: new TextStyle(color: Colours.color_737270),),
+            child: new Text(
+              '包间详情',
+              style: new TextStyle(color: Colours.color_737270),
+            ),
           ),
           new Row(
             children: <Widget>[
@@ -124,7 +125,7 @@ class LobbyPageState extends State<LobbyPage> {
                   textColor: Colors.white,
                   child: new Text('请点击包间下单'),
                   minWidth: 80,
-                  onPressed: (){},
+                  onPressed: () {},
                 ),
               ),
             ],
@@ -152,87 +153,109 @@ class LobbyPageState extends State<LobbyPage> {
                   return getItemContainer(datas[index]);
                 }),
           ),
-
         ],
       ),
     );
   }
 
-//  List<String> getDataList() {
-//    List<String> list = [];
-//    for (int i = 0; i < 15; i++) {
-//      list.add(i.toString());
-//    }
-//    return list;
-//  }
-
   Widget getItemContainer(RomeModel item) {
     return new Container(
       decoration: ShapeDecoration(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4)), side: BorderSide(color: Colours.color_A2A2A5, style: BorderStyle.solid, width: 1,)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+            side: BorderSide(
+              color: Colours.color_A2A2A5,
+              style: BorderStyle.solid,
+              width: 1,
+            )),
       ),
       child: new Column(
         children: <Widget>[
-          new Container(
-            child: Text(
-              item.name,
-              style: TextStyle(fontSize: 14,),
-              textAlign: TextAlign.center,
-            ),
-            width: 800,
-            padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
-            decoration: BoxDecoration(
-              color: Colours.color_80CC37,
-              borderRadius: new BorderRadius.vertical(top: Radius.circular(3)),
+          new Expanded(
+            child: new Row(
+              children: <Widget>[
+                new Expanded(
+                  child: new Container(
+                    child: Text(
+                      "山海关",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+//                  width: 80,
+                  alignment: Alignment.center,
+                  height: 200,
+                    padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
+                    decoration: BoxDecoration(
+                      color: Colours.color_80CC37,
+                      borderRadius:
+                          new BorderRadius.vertical(top: Radius.circular(3)),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           new Divider(
             height: 1,
             color: Colours.color_A2A2A5,
           ),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              new Expanded(
-                child: new Container(
-                  decoration: BoxDecoration(
-                    color: Colours.color_07A73B,
-                    borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(3)),
-                  ),
-                  child: Text(
-                    '中午',
-                    style: TextStyle(fontSize: 14,),
-                    textAlign: TextAlign.center,
-                  ),
+          new Expanded(
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                new Expanded(
+                  child: new Container(
+                    decoration: BoxDecoration(
+                      color: Colours.color_07A73B,
+                      borderRadius:
+                          new BorderRadius.only(bottomLeft: Radius.circular(3)),
+                    ),
+                    child: Text(
+                      '中午',
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    alignment: Alignment.center,
+                    height: 200,
 //                color: Colours.color_80CC37,
-                padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
+                    padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
+                  ),
                 ),
-              ),
-              new VerticalDivider(
-                width: 1,
-                color: Colours.color_A2A2A5,
-              ),
-              new Expanded(
-                child: new Container(
-                  decoration: BoxDecoration(
-                    color: Colours.color_07A73B,
-                    borderRadius: new BorderRadius.only(bottomRight: Radius.circular(3)),
-                  ),
-                  child: Text(
-                  '下午',
-                  style: TextStyle(fontSize: 14,),
-                  textAlign: TextAlign.center,
-                  ),
+                new VerticalDivider(
+                  width: 1,
+                  color: Colours.color_A2A2A5,
+                ),
+                new Expanded(
+                  child: new Container(
+                    decoration: BoxDecoration(
+                      color: Colours.color_07A73B,
+                      borderRadius: new BorderRadius.only(
+                          bottomRight: Radius.circular(3)),
+                    ),
+                    child: Text(
+                      '下午',
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    alignment: Alignment.center,
+                    height: 200,
 //                  color: Colours.color_80CC37,
-                  padding: EdgeInsets.fromLTRB(2, 3, 2, 3),),
-              ),
+                    padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
+                  ),
+                ),
 //              Text(
 //                item.name,
 //                style: TextStyle(color: Colors.white, fontSize: 14),
 //              ),
-            ],
-
-          )
+              ],
+            ),
+          ),
         ],
       ),
     );
