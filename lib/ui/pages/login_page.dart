@@ -28,6 +28,10 @@ class LoginPageState extends State<LoginPage> {
     initListener();
     initFromCache();
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Constant.screenWidth = MediaQuery.of(context).size.width;
+      LogUtil.e("screenWidth = "+Constant.screenWidth.toString(), tag: "tangzy");
+    });
   }
 
   void setState_() {

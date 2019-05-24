@@ -14,13 +14,16 @@ class LobbyPage extends StatefulWidget {
 
 class LobbyPageState extends State<LobbyPage> {
   String tag = "LobbyPage";
-  List<String> datas;
+
+  List<RomeModel> datas;
 
   @override
   void initState() {
+    datas = widget.loginModel.romes;
     // TODO: implement initState
     super.initState();
-    datas = getDataList();
+//    screenWidth = MediaQuery.of(context).size.width;
+
   }
 
   @override
@@ -94,52 +97,155 @@ class LobbyPageState extends State<LobbyPage> {
               mainAxisAlignment: MainAxisAlignment.center,
             ),
           ),
-          new GridView.builder(
-              shrinkWrap: true,
-              primary: false,
-              itemCount: datas.length,
-              //SliverGridDelegateWithFixedCrossAxisCount 构建一个横轴固定数量Widget
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  //横轴元素个数
-                  crossAxisCount: 3,
+          new Container(
+            child: new Container(
+              margin: EdgeInsets.fromLTRB(15.0, 15.0, 0.0,15.0),
+              child: new Divider(
+                height: 1,
+                color: Colours.color_7DC5CB,
+              ),
+              color: Colours.color_7DC5CB,
+            ),
+          ),
+          new Container(
+            margin: EdgeInsets.fromLTRB(15, 0, 10, 10),
+            child: new Text('包间详情',
+            style: new TextStyle(color: Colours.color_737270),),
+          ),
+          new Row(
+            children: <Widget>[
+              new Container(
+                padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                child: new MaterialButton(
+                  padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                  color: Colours.color_49B2B6,
+                  textColor: Colors.white,
+                  child: new Text('请点击包间下单'),
+                  minWidth: 80,
+                  onPressed: (){},
+                ),
+              ),
+            ],
+            mainAxisAlignment: MainAxisAlignment.center,
+          ),
+          new Container(
+            margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
+            child: new GridView.builder(
+                shrinkWrap: true,
+                primary: false,
+                itemCount: datas.length,
+                //SliverGridDelegateWithFixedCrossAxisCount 构建一个横轴固定数量Widget
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//                  //横轴元素个数
+                  crossAxisCount: 4,
                   //纵轴间距
-                  mainAxisSpacing: 20.0,
+                  mainAxisSpacing: 12.0,
                   //横轴间距
                   crossAxisSpacing: 10.0,
-                  //子组件宽高长度比例
-                  childAspectRatio: 1.0),
-              itemBuilder: (BuildContext context, int index) {
-                //Widget Function(BuildContext context, int index)
-                return getItemContainer(datas[index]);
-              }),
+//                  //子组件宽高长度比例
+                  childAspectRatio: 1.8,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  //Widget Function(BuildContext context, int index)
+                  return getItemContainer(datas[index]);
+                }),
+          ),
+
         ],
       ),
     );
   }
 
-  List<String> getDataList() {
-    List<String> list = [];
-    for (int i = 0; i < 100; i++) {
-      list.add(i.toString());
-    }
-    return list;
-  }
+//  List<String> getDataList() {
+//    List<String> list = [];
+//    for (int i = 0; i < 15; i++) {
+//      list.add(i.toString());
+//    }
+//    return list;
+//  }
 
-  List<Widget> getWidgetList() {
-    return getDataList().map((item) => getItemContainer(item)).toList();
-  }
-
-  Widget getItemContainer(String item) {
-    return Container(
-      width: 5.0,
-      height: 5.0,
-      alignment: Alignment.center,
-      child: Text(
-        item,
-        style: TextStyle(color: Colors.white, fontSize: 20),
+  Widget getItemContainer(RomeModel item) {
+    return new Container(
+      decoration: ShapeDecoration(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4)), side: BorderSide(color: Colours.color_A2A2A5, style: BorderStyle.solid, width: 1,)),
       ),
-      color: Colors.blue,
+      child: new Column(
+        children: <Widget>[
+          new Container(
+            child: Text(
+              item.name,
+              style: TextStyle(fontSize: 14,),
+              textAlign: TextAlign.center,
+            ),
+            width: 800,
+            padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
+            decoration: BoxDecoration(
+              color: Colours.color_80CC37,
+              borderRadius: new BorderRadius.vertical(top: Radius.circular(3)),
+            ),
+          ),
+          new Divider(
+            height: 1,
+            color: Colours.color_A2A2A5,
+          ),
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              new Expanded(
+                child: new Container(
+                  decoration: BoxDecoration(
+                    color: Colours.color_07A73B,
+                    borderRadius: new BorderRadius.only(bottomLeft: Radius.circular(3)),
+                  ),
+                  child: Text(
+                    '中午',
+                    style: TextStyle(fontSize: 14,),
+                    textAlign: TextAlign.center,
+                  ),
+//                color: Colours.color_80CC37,
+                padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
+                ),
+              ),
+              new VerticalDivider(
+                width: 1,
+                color: Colours.color_A2A2A5,
+              ),
+              new Expanded(
+                child: new Container(
+                  decoration: BoxDecoration(
+                    color: Colours.color_07A73B,
+                    borderRadius: new BorderRadius.only(bottomRight: Radius.circular(3)),
+                  ),
+                  child: Text(
+                  '下午',
+                  style: TextStyle(fontSize: 14,),
+                  textAlign: TextAlign.center,
+                  ),
+//                  color: Colours.color_80CC37,
+                  padding: EdgeInsets.fromLTRB(2, 3, 2, 3),),
+              ),
+//              Text(
+//                item.name,
+//                style: TextStyle(color: Colors.white, fontSize: 14),
+//              ),
+            ],
+
+          )
+        ],
+      ),
     );
+//      Container(
+//      alignment: Alignment.center,
+//      child:
+//// Text(
+////        item,
+////        style: TextStyle(color: Colors.white, fontSize: 20),
+////      ),
+//
+//
+//    );
   }
 
   void refreshAll() {

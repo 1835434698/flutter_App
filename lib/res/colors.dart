@@ -29,6 +29,11 @@ class Colours {
   static const Color green_53B890 = Color(0xff53B890); //<!--204-->
   static const Color color_EAEAEA = Color(0xffEAEAEA); //<!--204-->
   static const Color color_49B2B6 = Color(0xff49B2B6); //<!--204-->
+  static const Color color_7DC5CB = Color(0xff7DC5CB); //<!--204-->
+  static const Color color_737270 = Color(0xff737270); //<!--204-->
+  static const Color color_A2A2A5 = Color(0xffA2A2A5); //<!--204-->
+  static const Color color_80CC37 = Color(0xff80CC37); //<!--204-->
+  static const Color color_07A73B = Color(0xff07A73B); //<!--204-->
 
 }
 

@@ -17,6 +17,8 @@ class Constant {
   static const String key_splash_model = 'key_splash_models';
 
   static const platform = const MethodChannel("tangzy.flutter.io/java");
+
+  static double screenWidth=0;
 }
 
 class AppConfig {
