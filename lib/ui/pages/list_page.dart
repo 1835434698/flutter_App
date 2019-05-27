@@ -184,19 +184,6 @@ class ListPageState extends State<ListPage>{
     _refreshController.dispose();
     super.dispose();
   }
-
-
-  void refreshAll(){
-    LogUtil.e("刷新 ", tag: tag);
-  }
-  void loginOut(){
-    LogUtil.e("退出 ", tag: tag);
-    Navigator.of(context).pop('loginOut');
-  }
-  void statistics(){
-    LogUtil.e("statistics ", tag: tag);
-  }
-
 }
 
 class Model {

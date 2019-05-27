@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/component_index.dart';
 
+import 'order_page.dart';
+
 class LobbyPage extends StatefulWidget {
   LoginModel loginModel;
 
@@ -159,128 +161,158 @@ class LobbyPageState extends State<LobbyPage> {
   }
 
   Widget getItemContainer(RomeModel item) {
-    return new Container(
-      decoration: ShapeDecoration(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-            side: BorderSide(
-              color: Colours.color_A2A2A5,
-              style: BorderStyle.solid,
-              width: 1,
-            )),
-      ),
-      child: new Column(
-        children: <Widget>[
-          new Expanded(
-            child: new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: new Container(
-                    child: Text(
-                      "山海关",
-                      style: TextStyle(
-                        fontSize: 14,
+    return new GestureDetector(
+      onTap: (){
+        LogUtil.e("onTap ", tag: tag);
+
+      },
+      child: new Container(
+        decoration: ShapeDecoration(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              side: BorderSide(
+                color: Colours.color_A2A2A5,
+                style: BorderStyle.solid,
+                width: 1,
+              )),
+        ),
+        child: new Column(
+          children: <Widget>[
+            new Expanded(
+              child: new Row(
+                children: <Widget>[
+                  new Expanded(
+                    child: new Container(
+                      child: Text(
+                        "山海关",
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
 //                  width: 80,
-                  alignment: Alignment.center,
-                  height: 200,
-                    padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
-                    decoration: BoxDecoration(
-                      color: Colours.color_80CC37,
-                      borderRadius:
-                          new BorderRadius.vertical(top: Radius.circular(3)),
+                      alignment: Alignment.center,
+                      height: 200,
+                      padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
+                      decoration: BoxDecoration(
+                        color: Colours.color_80CC37,
+                        borderRadius:
+                        new BorderRadius.vertical(top: Radius.circular(3)),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          new Divider(
-            height: 1,
-            color: Colours.color_A2A2A5,
-          ),
-          new Expanded(
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                new Expanded(
-                  child: new Container(
-                    decoration: BoxDecoration(
-                      color: Colours.color_07A73B,
-                      borderRadius:
-                          new BorderRadius.only(bottomLeft: Radius.circular(3)),
-                    ),
-                    child: Text(
-                      '中午',
-                      style: TextStyle(
-                        fontSize: 14,
+            new Divider(
+              height: 1,
+              color: Colours.color_A2A2A5,
+            ),
+            new Expanded(
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  new Expanded(
+                    child: new Container(
+                      decoration: BoxDecoration(
+                        color: Colours.color_07A73B,
+                        borderRadius:
+                        new BorderRadius.only(bottomLeft: Radius.circular(3)),
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    alignment: Alignment.center,
-                    height: 200,
+                      child: Text(
+                        '中午',
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      alignment: Alignment.center,
+                      height: 200,
 //                color: Colours.color_80CC37,
-                    padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
-                  ),
-                ),
-                new VerticalDivider(
-                  width: 1,
-                  color: Colours.color_A2A2A5,
-                ),
-                new Expanded(
-                  child: new Container(
-                    decoration: BoxDecoration(
-                      color: Colours.color_07A73B,
-                      borderRadius: new BorderRadius.only(
-                          bottomRight: Radius.circular(3)),
+                      padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
                     ),
-                    child: Text(
-                      '下午',
-                      style: TextStyle(
-                        fontSize: 14,
+                  ),
+                  new VerticalDivider(
+                    width: 1,
+                    color: Colours.color_A2A2A5,
+                  ),
+                  new Expanded(
+                    child: new Container(
+                      decoration: BoxDecoration(
+                        color: Colours.color_07A73B,
+                        borderRadius: new BorderRadius.only(
+                            bottomRight: Radius.circular(3)),
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    alignment: Alignment.center,
-                    height: 200,
+                      child: Text(
+                        '下午',
+                        style: TextStyle(
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      alignment: Alignment.center,
+                      height: 200,
 //                  color: Colours.color_80CC37,
-                    padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
+                      padding: EdgeInsets.fromLTRB(2, 3, 2, 3),
+                    ),
                   ),
-                ),
 //              Text(
 //                item.name,
 //                style: TextStyle(color: Colors.white, fontSize: 14),
 //              ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
-//      Container(
-//      alignment: Alignment.center,
-//      child:
-//// Text(
-////        item,
-////        style: TextStyle(color: Colors.white, fontSize: 20),
-////      ),
-//
-//
-//    );
   }
 
   void refreshAll() {
     LogUtil.e("刷新 ", tag: tag);
+    LoginReq _loginReq = new LoginReq(
+        Constant.account, Constant.password);
+    RequestUtil requestUtil = new RequestUtil();
+    requestUtil.getLogin(_loginReq).then((login) {
+      widget.loginModel = login;
+      setState_();
+    }).catchError((error) {
+      LogUtil.e("error......" + error.toString(), tag: tag);
+    });
   }
 
+
+  void setState_() {
+    setState(() {});
+  }
   void loginOut() {
     LogUtil.e("退出 ", tag: tag);
     Navigator.of(context).pop('loginOut');
   }
 
   void statistics() {
+//    NavigatorUtil.pushPage(context, OrderPage(), pageName: "OrderPage");
+
+    DateTime now = new DateTime.now();
     LogUtil.e("statistics ", tag: tag);
+    var startTime = now.year.toString()+'-'+now.month.toString()+"-"+now.day.toString()+" 01:00:00";
+    var endTime = now.year.toString()+'-'+now.month.toString()+"-"+now.day.toString()+" 23:59:59";
+//    OrderListReq orderListReq = new OrderListReq(sellerId: Constant.loginModel.sellerId, startTime: startTime, endTime: endTime, pageNo:  1);
+    OrderListReq orderListReq = new OrderListReq();
+    orderListReq.setStatus(-2);
+    orderListReq.setSellerId(Constant.loginModel.sellerId);
+    orderListReq.setStartTime(startTime);
+    orderListReq.setEndTime(endTime);
+
+    RequestUtil requestUtil = new RequestUtil();
+    requestUtil.getOrderList(orderListReq).then((orderListModel){
+      LogUtil.e("orderListModel = " + orderListModel.toString(), tag: tag);
+      Navigator.push( context, MaterialPageRoute(
+              builder: (_) => OrderPage(orderListModel: orderListModel))
+      );
+    }).catchError((onError){
+      LogUtil.e("onError......" + onError.toString(), tag: tag);
+    });
   }
 }

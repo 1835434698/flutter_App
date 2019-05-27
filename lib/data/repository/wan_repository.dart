@@ -40,6 +40,23 @@ class WanRepository {
     }
     return beanModel;
   }
+  /**
+   * 获取订单列表
+   */
+  Future<OrderListModel> getOrderList({data}) async {
+    BaseResp<OrderListModel> baseResp = await DioUtil().request<OrderListModel>(
+        Method.post, WanAndroidApi.getPath(path: WanAndroidApi.Api_orderList),data: data);
+    if (baseResp.code != Constant.status_success) {
+      Fluttertoast.showToast(msg: baseResp.msg,
+          toastLength: Toast.LENGTH_SHORT);
+      return new Future.error(baseResp.msg);
+    }
+    OrderListModel beanModel;
+    if (baseResp.data != null) {
+      beanModel = OrderListModel.fromJson(baseResp.data);
+    }
+    return beanModel;
+  }
 
 
 

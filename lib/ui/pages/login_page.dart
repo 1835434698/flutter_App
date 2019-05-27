@@ -287,6 +287,9 @@ class LoginPageState extends State<LoginPage> {
                 requestUtil.getLogin(_loginReq).then((login) {
                   LogUtil.e("getLogin....2.." + login.toString(),
                       tag: 'LoginPage');
+                  Constant.account = _phone_controller.text;
+                  Constant.password = _password_controller.text;
+                  Constant.loginModel = login;
                   Navigator.push(
                       context,
                       MaterialPageRoute(

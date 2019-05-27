@@ -3,6 +3,7 @@ class WanAndroidApi {
   static const String USER_LOGIN = "login"; //登录
 //  static const String USER_LOGIN = "test/login.php"; //登录
   static const String Api_appPics = "appPic/list"; //
+  static const String Api_orderList = "order/order/list"; //
 
   /// 首页banner http://www.wanandroid.com/banner/json
   static const String BANNER = "banner";

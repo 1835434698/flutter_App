@@ -17,6 +17,11 @@ class RequestUtil{
     return wanRepository.getImage(data:reqData.toJson());
   }
 
+  Future getOrderList(OrderListReq _req) async {
+    ReqData reqData = new ReqData( await _getEncryptionAES(_req.toString()));
+    return wanRepository.getOrderList(data:reqData.toJson());
+  }
+
 
   Future<String> _getEncryptionAES(String params) async {
     String result;

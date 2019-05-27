@@ -2,6 +2,9 @@ import 'package:flutter_app/common/component_index.dart';
 
 class Constant {
   static const String keyLanguage = 'key_language';
+  static String account;
+  static String password;
+  static LoginModel loginModel;
 
   static const int status_success = 200;
 

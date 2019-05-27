@@ -19,3 +19,4 @@ export 'backdrop_demo.dart';
 export 'login_page.dart';
 export 'welcome_page.dart';
 export 'lobby_page.dart';
+export 'order_page.dart';

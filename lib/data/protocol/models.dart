@@ -207,18 +207,26 @@ class RomeOrdersModel extends BaseModel{
    int status;
    int type;
    int preordain = 0;//
-   String preordainAm ;//0 未预订  1,已预订
-   String preordainPm ;//0 未预订  1,已预订
+   int preordainAm ;//0 未预订  1,已预订
+   int preordainPm ;//0 未预订  1,已预订
+   var varStr;
 
-   RomeOrdersModel.fromJson(Map<String, dynamic> json)
-      :
-        orderNo = json['orderNo'],
-         status = json['status'],
-         type = json['type'],
-         preordain = json['preordain'],
-         preordainAm = json['preordainAm'],
-         preordainPm = json['preordainPm']
-  ;
+   RomeOrdersModel.fromJson(Map<String, dynamic> json){
+     orderNo = json['orderNo'];
+     status = json['status'];
+     type = json['type'];
+     preordain = json['preordain'];
+     varStr = (json['preordainAm']);
+     if(varStr == null || varStr == "")
+      varStr = 0;
+     preordainAm = varStr is int ? varStr : int.parse(varStr);
+     varStr = (json['preordainPm']);
+     if(varStr == null || varStr == "")
+       varStr = 0;
+//     preordainPm = json['preordainPm'];
+     preordainPm = varStr is int ? varStr : int.parse(varStr);
+
+   }
 
   Map<String, dynamic> toJson() => {
     'orderNo': orderNo,
@@ -236,8 +244,8 @@ class RomeOrdersModel extends BaseModel{
     sb.write(',"status":$status');
     sb.write(',"type":$type');
     sb.write(',"preordain":$preordain');
-    sb.write(',"preordainAm":"$preordainAm"');
-    sb.write(',"preordainPm":"$preordainPm"');
+    sb.write(',"preordainAm":$preordainAm');
+    sb.write(',"preordainPm":$preordainPm');
     sb.write('}');
     return sb.toString();
   }
@@ -303,7 +311,184 @@ class PicModel extends BaseModel{
   }
 }
 
+class OrderListModel extends BaseModel{
+  List<OrderBeanModel> orderList = new List();
 
+  OrderListModel.fromJson(Map<String, dynamic> json){
+    for(var dataItem in json['orderList']){
+      orderList.add(new OrderBeanModel.fromJson(dataItem));
+    }
+  }
+
+  Map<String, dynamic> toJson() => {
+    'orderList': orderList,
+  };
+
+  @override
+  String toString() {
+    StringBuffer sb = new StringBuffer('{');
+    sb.write('"imageUrl":$orderList');
+    sb.write('}');
+    return sb.toString();
+  }
+}
+class OrderBeanModel extends BaseModel{
+  String orderNo;
+  String createTime;
+  int orderRomeType;
+  int orderType;// 订单类型 0 线上订单 1线下订单
+  String statusName;
+  int statusColor = 0;
+  String statusType;
+  int status;//预订-2，预订确定中-1，下单未支付 0，支付中 1 ，支付成功2，支付失败 3，支付超时4，商家确认 5，取消 6
+  int preordainAm;// 0 未预订  1,已预订
+  int preordainPm;//0 未预订  1,已预订
+  int sendMeal;//是否支持送餐 false 不支持 true 支持
+  String price;
+  String custormTel;
+  String custormName;
+  String hallMark;//就餐地点
+
+  Rome2Model rome;
+//  List<DishModel> changeIds = new List();
+
+  bool isSelected = false;
+  bool isRead = false;
+
+  OrderBeanModel.fromJson(Map<String, dynamic> json){
+    orderNo = json['orderNo'];
+    createTime = json['createTime'];
+    orderRomeType = json['orderRomeType'];
+    orderType = json['orderType'];
+    statusName = json['statusName'];
+    statusColor = json['statusColor'];
+    statusType = json['statusType'];
+    status = json['status'];
+    preordainAm = json['preordainAm'];
+    preordainPm = json['preordainPm'];
+    sendMeal = json['sendMeal'];
+    price = json['price'].toString();
+    custormTel = json['custormTel'];
+    custormName = json['custormName'];
+    hallMark = json['hallMark'];
+    isSelected = json['isSelected'];
+    isRead = json['isRead'];
+    rome = new Rome2Model.fromJson(json['rome']);
+//    for(var dataItem in json['changeIds']){
+//      changeIds.add(new DishModel.fromJson(dataItem));
+//    }
+  }
+
+  Map<String, dynamic> toJson() => {
+    'orderNo': orderNo,
+    'createTime': createTime,
+    'orderRomeType': orderRomeType,
+    'orderType': orderType,
+    'statusName': statusName,
+    'statusColor': statusColor,
+    'statusType': statusType,
+    'status': status,
+    'preordainAm': preordainAm,
+    'preordainPm': preordainPm,
+    'sendMeal': sendMeal,
+    'price': price,
+    'custormTel': custormTel,
+    'custormName': custormName,
+    'hallMark': hallMark,
+    'isSelected': isSelected,
+    'isRead': isRead,
+    'rome': rome,
+  };
+
+  @override
+  String toString() {
+    StringBuffer sb = new StringBuffer('{');
+    sb.write('"orderNo":"$orderNo"');
+    sb.write(',"createTime":"$createTime"');
+    sb.write(',"orderRomeType":$orderRomeType');
+    sb.write(',"orderType":$orderType');
+    sb.write(',"statusName":"$statusName"');
+    sb.write(',"statusColor":$statusColor');
+    sb.write(',"statusType":"$statusType"');
+    sb.write(',"status":$status');
+    sb.write(',"preordainAm":$preordainAm');
+    sb.write(',"preordainPm":$preordainPm');
+    sb.write(',"sendMeal":$sendMeal');
+    sb.write(',"price":"$price"');
+    sb.write(',"custormTel":"$custormTel"');
+    sb.write(',"custormName":"$custormName"');
+    sb.write(',"hallMark":"$hallMark"');
+    sb.write(',"isSelected":$isSelected');
+    sb.write(',"isRead":$isRead');
+    sb.write(',"rome":$rome');
+    sb.write('}');
+    return sb.toString();
+  }
+}
+
+
+class Rome2Model extends BaseModel{
+  int romeId;
+  String romeName;
+  int status;
+  int preordainAmStatus = 0;//0 未预订  1,已预订
+  int preordainPmStatus = 0;//0 未预订  1,已预订
+
+  Rome2Model.fromJson(Map<String, dynamic> json){
+    romeId = json['romeId'];
+    romeName = json['romeName'];
+    status = json['status'];
+    preordainAmStatus = json['preordainAmStatus'];
+    preordainPmStatus = json['preordainPmStatus'];
+  }
+
+  Map<String, dynamic> toJson() => {
+    'romeId': romeId,
+    'romeName': romeName,
+    'status': status,
+    'preordainAmStatus': preordainAmStatus,
+    'preordainPmStatus': preordainPmStatus,
+  };
+
+  @override
+  String toString() {
+    StringBuffer sb = new StringBuffer('{');
+    sb.write('"romeId":$romeId');
+    sb.write(',"romeName":"$romeName"');
+    sb.write(',"status":$status');
+    sb.write(',"preordainAmStatus":$preordainAmStatus');
+    sb.write(',"preordainPmStatus":$preordainPmStatus');
+    sb.write('}');
+    return sb.toString();
+  }
+}
+class DishModel extends BaseModel{
+  int dishId;
+  String practice;
+  int dishCount;
+
+  DishModel.fromJson(Map<String, dynamic> json){
+    dishId = json['dishId'];
+    practice = json['practice'];
+    dishCount = json['dishCount'];
+  }
+
+  Map<String, dynamic> toJson() => {
+    'dishId': dishId,
+    'practice': practice,
+    'dishCount': dishCount,
+  };
+
+  @override
+  String toString() {
+    StringBuffer sb = new StringBuffer('{');
+    sb.write('"dishId":$dishId');
+    sb.write(',"practice":"$practice"');
+    sb.write(',"dishCount":$dishCount');
+    sb.write('}');
+    return sb.toString();
+  }
+}
 
 
 
@@ -438,6 +623,70 @@ class ImageReq {
   String toString() {
     StringBuffer sb = new StringBuffer('{');
     sb.write('"imageType":$imageType');
+    sb.write('}');
+    return sb.toString();
+  }
+}
+class OrderListReq {
+  int sellerId ;//包间id,  大厅时传啥？
+  int pageNo = 1 ;//页码
+  int pageSize = 10 ;//分页大小
+  int status ;//默认查询订单支付前订单
+  String startTime;
+  String endTime;
+
+  OrderListReq();
+
+  void setStartTime(String startTime) {
+    this.startTime = startTime;
+  }
+
+  void setEndTime(String endTime) {
+    this.endTime = endTime;
+  }
+
+  void setSellerId(int sellerId) {
+    this.sellerId = sellerId;
+  }
+
+  void setPageNo(int pageNo) {
+    this.pageNo = pageNo;
+  }
+
+  void setPageSize(int pageSize) {
+    this.pageSize = pageSize;
+  }
+
+  void setStatus(int status) {
+    this.status = status;
+  }
+
+  OrderListReq.fromJson(Map<String, dynamic> json)
+      : pageSize = json['pageSize'],
+        sellerId = json['sellerId'],
+        pageNo = json['pageNo'],
+       status = json['status'],
+      startTime = json['startTime'],
+      endTime = json['endTime'];
+
+  Map<String, dynamic> toJson() => {
+        'sellerId': sellerId,
+        'pageNo': pageNo,
+        'pageSize': pageSize,
+        'status': status,
+        'startTime': startTime,
+        'endTime': endTime,
+      };
+
+  @override
+  String toString() {
+    StringBuffer sb = new StringBuffer('{');
+    sb.write('"pageSize":"$pageSize"');
+    sb.write(',"sellerId":"$sellerId"');
+    sb.write(',"pageNo":"$pageNo"');
+    sb.write(',"status":"$status"');
+    sb.write(',"startTime":"$startTime"');
+    sb.write(',"endTime":"$endTime"');
     sb.write('}');
     return sb.toString();
   }
